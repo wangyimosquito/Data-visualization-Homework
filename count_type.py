@@ -26,6 +26,7 @@ class count:
 		with open(link_json_path, "r") as json_file:
 			self.link_json = json.load(json_file)	
 
+	#统计非法域名总数
 	def count_all_illegal_domain(self):
 		illegal_num = 0
 		count = 0
@@ -38,6 +39,7 @@ class count:
 				illegal_num += 1
 		print("total illegal domain node num: ", illegal_num)
 
+	#统计每个非法产业节点数
 	def count_diff_industry(self):
 		illegal = [0,0,0,0,0,0,0,0,0]
 		for key, value in self.node_json.items():
@@ -62,7 +64,7 @@ class count:
 					illegal[8] += 1
 		print(illegal)
 	
-	#统计各个IP涉及的非法产业
+	#统计各个IP和Cert涉及的非法产业
 	def IP_Cert_json(self):
 		IP_json = {}
 		Cert_json = {}
@@ -110,7 +112,7 @@ class count:
 		with open(Cert_industry_json_path,'w+') as file:
 			file.write(dict_json)
 
-
+	#统计IP和Cert节点总数
 	def count_total_IP_Cert(self):
 		IP_num = 0
 		Cert_num = 0
@@ -122,6 +124,7 @@ class count:
 		print("IP num: ", IP_num)
 		print("Cert num: ", Cert_num)
 	
+	#统计脏IP和Cert总数以及分布
 	def illegal_distribution(self):
 		with open(IP_industry_json_path, "r") as json_file:
 			ip = json.load(json_file)
@@ -129,12 +132,12 @@ class count:
 			cert = json.load(json_file)
 		print("dirty ip: ", len(ip))
 		print("dirty cert: ", len(cert))
-		#计算所有脏Cert涉及的非法产业分布
 		num = [0,0,0,0,0,0,0,0,0]
 		for key, value in cert.items():
 			num[len(value)-1] += 1
 		print("distribution of illegal industry num: ", num)
 
+	#统计节点度分布及可视化
 	def degree_distribution(self):
 		node_degree = {}
 		for key,value in self.node_json.items():
@@ -156,7 +159,6 @@ class count:
 				degree[value] = 1
 		
 		#数据分布可视化
-		
 		x_data = []
 		y_data = []
 		for key,value in degree.items():
@@ -166,14 +168,7 @@ class count:
 		# print(y_data)
 		plt.scatter(x_data, y_data)
 		plt.show()
-	
-	def test(self):
-		with open(connect_json_path, "r") as json_file:
-			connect = json.load(json_file)
-		for key,value in connect.items():
-			print(key)
-			print(value)
-			break
+
 
 if(__name__ == '__main__'):
 	C = count()
