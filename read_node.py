@@ -17,7 +17,6 @@ class readData:
 		self.node_data = np.array(self.node_data)
 		self.link_data = np.array(self.link_data)
 	
-	#生成节点信息json文件ID: {'type': 'IP'...}
 	def node_to_dic(self):
 		node_json = {}
 		new_node_json = {}
@@ -33,7 +32,6 @@ class readData:
 		with open("new_node.json",'w+') as file:
 			file.write(dict_json)
 	
-	#生成有向连边邻接表A——>[B,C,D]
 	def link_to_dic(self):
 		link_json = {}
 		source = []
@@ -63,7 +61,6 @@ class readData:
 		with open(link_json_path,'w+') as file:
 			file.write(dict_json)
 	
-	#生成节点涉及非法产业列表
 	def parse_industry(self, str):
 		industry = []
 		for c in str:
@@ -87,7 +84,6 @@ class readData:
 				industry.append('I')
 		return industry
 
-	#节点连边类型字典 ID1+ID2 : Link-type
 	def link_type_dic(self):
 		link_json = {}
 		for i in self.link_data:
@@ -97,7 +93,6 @@ class readData:
 		with open(link_type_json_path,'w+') as file:
 			file.write(dict_json)
 
-	#所有节点的无向邻接表，即每个节点所有相连节点：A->[B,C,D,E...]
 	def connect_dic(self):
 		connect_json = {}
 		for i in self.link_data:
@@ -121,3 +116,10 @@ class readData:
 if(__name__ == '__main__'):
 	test = readData()
 	test.connect_dic()
+	# with open("link.json", "r") as json_file:
+	# 	json_dict = json.load(json_file)
+	# count_leaf = 0
+	# for key, value in json_dict.items():
+	# 	if len(value) == 0:
+	# 		count_leaf += 1
+	# print(count_leaf)
